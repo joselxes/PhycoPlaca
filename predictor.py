@@ -40,19 +40,22 @@ class autoQuery:
 
         dontDrive=plateToDay[str(self.number%10)]
         todayIs=plateList[self.currentDate.weekday()]
+        # print(dontDrive,todayIs,)
         sameDay=dontDrive==todayIs
         inTime=(starTime1<= self.hour <= endTime1) or (starTime2<= self.hour <= endTime2)
-
+        # print(sameDay and inTime)
         return   sameDay and inTime
 
 
 
 def main():
-    data=sys.stdin.readline()
+    # data=sys.stdin.readline().split()
     # data=sys.stdin.read() no
-    # data=input().split()
-    # data[0]=int(data[0])
-    print("999",data, type(data))
-    # a=autoQuery(data)
+    data=input().split()
+    # print("999",data, type(data))
+    data[0]=int(data[0])
+    # print("999",data, type(data))
+    a=autoQuery(data)
+    print(a.drivingTime())
 main()
 
