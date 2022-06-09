@@ -1,8 +1,8 @@
-import os
+# import os
 import datetime
 from random import  randrange
 import random
-import sys
+# import sys
 plateToDay={ "1":0,
         "2":0,
         "3":1,
@@ -15,27 +15,40 @@ plateToDay={ "1":0,
         "0":4,
 }
 
-def randomInput():
+class randQuery():
     #for i in range(0,1):
-    fout=open("create_query.txt", 'wt')
+    def __init__(self):
+        plate1=random.randint(0, 9)*1000
+        plate2=random.randint(0, 9)*100
+        plate3=random.randint(0, 9)*10
+        plate4=random.randint(0, 9)
+        self.plate=plate1+plate2+plate3+plate4
+        
+        testDate,dayBool=randomDay(plate4)
+        self.date=testDate
 
-    plate1=random.randint(0, 9)
-    plate2=random.randint(0, 9)
-    plate3=random.randint(0, 9)
-    plate4=random.randint(0, 9)    
+        testHour,timeBool=randomHour()
+        self.hour=str(testHour)[:-3]
 
-    testDate,dayBool=randomDay(plate4)
-    testHour,timeBool=randomHour()
+        self.solution=str(timeBool and dayBool)
 
-    fout.write('%s%s%s%s %s %s\n' % (plate1, plate2, plate3, plate4,
-     str(testDate), 
-     str(testHour)[:-3] ))
-    fout.write('\n')
-    fout.close
-    print('%s%s%s%s %s %s\n' % (plate1, plate2, plate3, plate4,
-     str(testDate), 
-     str(testHour)[:-3] ))
-    return  timeBool and dayBool
+    def __str__(self):
+        return f'Car with the plate {self.plate}, date {self.date}, time {self.hour}'
+
+
+    def saveQuery(self):
+        # print('%s %s %s %s\n' % (self.plate,
+        # self.date, 
+        # self.hour,
+        # self.solution))
+        fout=open("test_query.txt", 'wt')
+        fout.write('%s %s %s\n' % (self.plate,
+        self.date, 
+        self.hour) )
+        fout.write('\n')
+        fout.close
+
+
 def randomDay(plateDigit):
     testYear=random.randint(2012, 2023)    
     testMonth=random.randint(1, 12)
@@ -100,21 +113,3 @@ def randomHour():
     #  testHour, testMinute1, testMinute2))
 
 
-
-
-def main():
-    varControl=randomInput()
-    batcmd=('python3 predictor.py < create_query.txt ')
-    result  = os.popen(batcmd).readlines()
-    print(result[0][:-1]== str(varControl))
-    varCount=0
-    while result[0][:-1]== str(varControl):
-        varControl=randomInput()
-        result  = os.popen(batcmd).readlines()
-        print(result[0][:-1]== str(varControl), varCount)
-        varCount+=1
-
-
-
-if __name__ == "__main__":
-    main()
