@@ -37,6 +37,8 @@ class randQuery():
 
 
     def saveQuery(self):
+        """ Saves the created input in a txt file"""
+
         # print('%s %s %s %s\n' % (self.plate,
         # self.date, 
         # self.hour,
@@ -50,6 +52,8 @@ class randQuery():
 
 
 def randomDay(plateDigit):
+    """ Receives the plate number, and outputs a random date and a boolean 
+    True if the date is in the same day of the week of the given plate, otherwise False"""
     testYear=random.randint(2012, 2023)    
     testMonth=random.randint(1, 12)
 
@@ -81,6 +85,9 @@ def randomDay(plateDigit):
     return testDate, drive
 
 def randomHour():
+    """ Outputs a random time and a boolean 
+    True if the time is between Pico y Placa time restriction, otherwise False"""
+
     if random.randint(0,1):
         drive=True    
     else:

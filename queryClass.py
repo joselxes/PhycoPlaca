@@ -1,5 +1,6 @@
 import datetime
 import sys
+
 plateToDay={ "1":"lunes",
         "2":"lunes",
         "3":"martes",
